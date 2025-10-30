@@ -28,10 +28,10 @@ def generateRandomPassword(length):
     return "".join(secure_string)
 
 def updateKeeperRecord(idracIP, passwordstr):
-    record_search = api.search_records(keeperParams, routerIP)
+    record_search = api.search_records(keeperParams, idracIP)
     for record in record_search:
-        if (routerIP == record.notes):
-            print("found 1 keeper record matching search parameters: " + routerIP)
+        if (idracIP == record.notes):
+            print("found 1 keeper record matching search parameters: " + idracIP)
             print("Updating keeper record password to: " + passwordstr)
             RecordUpdateCommand().execute(keeperParams, record=record.record_uid, fields=['password=' + passwordstr])   
 
@@ -57,7 +57,7 @@ for host in idrac_hosts:
         currentpassword = getKeeperPasswordForRouter(host)
         ssh.connect(hostname=host, username="root", password=currentpassword, timeout=10)
 
-        newpassword = generateRandomPassword(16)
+        newpassword = generateRandomPassword(45)
         cmd = f"racadm set iDRAC.Users.2.Password {newpassword}"
         print(cmd)
         stdin, stdout, stderr = ssh.exec_command(cmd)
@@ -73,3 +73,4 @@ for host in idrac_hosts:
         print(f"Failed to update {host}: {e}")
     finally:
         ssh.close()
+
