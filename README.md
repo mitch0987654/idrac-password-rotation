@@ -18,4 +18,4 @@ pip install paramiko
 pip install keepercommander
 
 
-#Within this python-venv-routers directory create the two script files and modify them as necessary. We will also need to create the config.json file required for keeper
+#Within this python-venv-idrac directory create the two script files and modify them as necessary. We will also need to create the config.json file required for keeper
